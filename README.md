@@ -6,10 +6,10 @@ because we just need a little help
 ### Install the image and container
 
 - Install Docker
-- Build the image with `docker build -t little-help-book:0.1 .`
+- Build the image with `docker build -t little-help-book:0.1.1 .`
 
 ### Run the app
-- Run the image with `docker run -p 5000:800 little-help-book::0.1`
+- Run the image with `docker run -p 5000:8080 little-help-book:0.1.1`
 - Open a browser and go to `localhost:5000`
 
 ### Close down the app
@@ -21,10 +21,15 @@ because we just need a little help
 - Look online to find how to install at least a single node k8s cluster.
 - There are many ways to run k8s, including KinD, microk8s, and others.
 
-### Install the namespace, apply the deployment and service
-- Run the command `kubectl create -f kube/namespace.yml`
-- Run `kubectl apply -f kube/deploy.yml`
-- Run `kubectl apply -f kube/service.yml`
+### Create the namespaces, apply deployments and services
+
+Run the following commands:
+
+```bash
+    $ kubectl create namespace little-help-book-stage
+    $ kubectl create namespace little-help-book-prod
+    $ kubectl apply ./kube
+```
 
 ### Run the app
 - Wait for the pod to be deployed. You can see if the pod is running with `kubectl get pods -n little-help-book`
@@ -33,4 +38,5 @@ because we just need a little help
 - Go to the URL path /weatherforecast to see information from the API, e.g. `http://10.0.0.1/weatherforecast`
 
 ### Shut down app
-- `kubectl delete namespace little-help-book`
+- `kubectl delete namespace little-help-book-stage`
+- `kubectl delete namespace little-help-book-prod`
