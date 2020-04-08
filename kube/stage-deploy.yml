@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: web-server
-          image: codegold79/little-help-book:0.1.0
+          image: codegold79/little-help-book:0.1.1
           resources:
             limits:
               cpu: 0.25
@@ -26,7 +26,7 @@ spec:
               cpu: 0.25
               memory: 250Mi
           ports:
-            - containerPort: 80
+            - containerPort: 8080
   strategy:
     type: RollingUpdate
     rollingUpdate:

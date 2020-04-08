@@ -2,37 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: little-help-book-web
-  namespace: prod-little-help-book
-  annotations:
-    getambassador.io/config: |
-      ---
-      apiVersion: ambassador/v0
-      kind: Mapping
-      name: little-help-book-mapping
-      host: littlehelpbook.mvpstudio.org
-      prefix: /
-      rewrite: /weatherforecast
-      service: little-help-book-web.prod-little-help-book
-      ---
-      apiVersion: ambassador/v0
-      kind: Mapping
-      name: little-help-book-mapping-www
-      host: www.littlehelpbook.mvpstudio.org
-      prefix: /
-      rewrite: /weatherforecast
-      service: little-help-book-web.prod-little-help-book
-      ---
-      apiVersion: ambassador/v0
-      kind: TLSContext
-      name: prod-little-help-book-tls
-      hosts:
-      - littlehelpbook.mvpstudio.org
-      - www.littlehelpbook.mvpstudio.org
-      secret: prod-apps-cert
+  namespace: little-help-book-prod
 spec:
   selector:
-     app: little-help-book
+    app: little-help-book
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 5000
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
