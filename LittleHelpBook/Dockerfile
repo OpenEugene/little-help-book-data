@@ -1,8 +1,8 @@
 FROM mvpstudio/base:v1 AS base
-ENV ASPNETCORE_URLS=http://+:80  
+ENV ASPNETCORE_URLS=http://*:8080
 
-WORKDIR /app
-EXPOSE 80
+WORKDIR /home/mvp/app
+EXPOSE 8080
 
 # https://docs.microsoft.com/en-us/dotnet/core/install/linux-package-manager-debian10
 RUN apt-get install wget && \
@@ -28,7 +28,8 @@ FROM build AS publish
 RUN dotnet publish "LittleHelpBook.csproj" -c Release -o /app/publish
 
 FROM base AS final
-WORKDIR /app
+USER mvp
+WORKDIR /home/mvp/app
 COPY --from=publish /app/publish .
 
 ENTRYPOINT ["dotnet", "LittleHelpBook.dll"]
